@@ -54,4 +54,4 @@ async def handle_message(message: Message):
         await enable_message.delete()
         await message.answer(response, parse_mode="MARKDOWN")
     except Exception as e:
-        print(e)
+        logging.info(f"Error: {e}")

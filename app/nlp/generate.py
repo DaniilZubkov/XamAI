@@ -1,5 +1,4 @@
 from g4f.client import Client
-from functools import lru_cache
 import logging
 import asyncio
 import time
@@ -7,7 +6,6 @@ import time
 """YOU CAN ALSO IMPORT YOUR PROVIDER HERE"""
 from config.settings import prompt, model, client, max_retries, retry_delay 
 
-# Настройка логирования
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -55,6 +53,6 @@ async def create_response(
 
         finally:
             elapsed_time = time.time() - start_time
-            logging.info(f'The response from model was successfully send: {round(elapsed_time, 2)} сек')
+            logging.info(f'The response from model was successfully send: {round(elapsed_time, 2)} sec')
     
-    raise AIResponseError(f"Не удалось получить ответ после {max_retries} попыток. Последняя ошибка: {str(last_error)}")
+    raise AIResponseError(f"Failed to catch response for {max_retries} retryes. Last fail: {str(last_error)}")

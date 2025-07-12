@@ -22,15 +22,6 @@ class Database:
             logging.info("Database pool created")
 
     async def register_user(self, user_data: Dict[str, Any]) -> Optional[int]:
-        """
-        Регистрирует нового пользователя или обновляет существующего
-        
-        Args:
-            user_data: Словарь с данными пользователя из Telegram
-            
-        Returns:
-            ID пользователя в базе данных или None если произошла ошибка
-        """
         if not self._pool:
             raise RuntimeError("Pool is not initialized")
 
@@ -38,7 +29,6 @@ class Database:
             try:
                 logging.info(f"Attempting to register user: {user_data['telegram_user_id']}")
                 
-                # Пытаемся вставить нового пользователя
                 user_id = await conn.fetchval(
                     """
                     INSERT INTO users (

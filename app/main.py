@@ -3,11 +3,10 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent))
 
-from aiogram import Bot, Dispatcher, Router
+from aiogram import Bot, Dispatcher
 import asyncio
 import logging
 
-from database.querys import Database
 from config.settings import TELEGRAM_TOKEN, DB_CONFIG
 from app.bot.bot import router
 from database.conn import db
@@ -18,12 +17,10 @@ bot = Bot(token=TELEGRAM_TOKEN)
 dp = Dispatcher()
 
 async def on_startup():
-    """Действия при запуске бота"""
     await db.create_pool(**DB_CONFIG)
     logging.info("Bot started")
 
 async def on_shutdown():
-    """Действия при остановке бота"""
     await db.close()
     logging.info("Bot stopped")
 
